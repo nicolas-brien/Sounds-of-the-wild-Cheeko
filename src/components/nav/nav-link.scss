@@ -1,0 +1,19 @@
+.nav-link {
+    display: flex;
+    align-items: center;
+    justify-items: center;
+
+    height: 100%;
+    width: fit-content;
+    padding: 0 0.8rem;
+
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff;
+
+    background-color: #31576d;
+
+    &:hover {
+        background-color: #3d5b6d;
+    }
+}

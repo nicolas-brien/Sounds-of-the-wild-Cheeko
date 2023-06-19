@@ -1,0 +1,21 @@
+.slider {
+    display: flex;
+    align-items: center;
+
+    height: 2.4rem;
+}
+
+.slider-thumb {
+    height: 1.2rem;
+    width: 1.2rem;
+
+    border-radius: 50%;
+
+    background-color: #3d5b6d;
+}
+
+.slider-track {
+    height: 0.4rem;
+
+    background-color: #fff;
+}

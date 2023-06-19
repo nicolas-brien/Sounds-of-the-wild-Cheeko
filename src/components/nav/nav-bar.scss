@@ -1,0 +1,12 @@
+.nav-bar {
+    display: flex;
+    flex-direction: row;
+
+    height: 4rem;
+
+    background-color: #31576d;
+
+    * {
+        margin-right: 0.8rem;
+    }
+}

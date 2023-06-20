@@ -1,27 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Select from "react-select";
+import Dropdown from "react-dropdown";
 
 import "./select.scss";
 
-const a = ({ value, options, onChange }) => {
-    const handleOnChange = (v) => {
-        onChange(v.value);
-    };
-
+const Select = ({ value, options, onChange }) => {
     return (
-        <Select
+        <Dropdown
             className="select"
-            defaultValue={{ value: value, label: value }}
-            options={options.map(x => ({ value: x, label: x }))}
-            onChange={handleOnChange} />
+            value={value}
+            options={options}
+            onChange={onChange} />
     );
 };
 
-a.propTypes = {
+Select.propTypes = {
     value: PropTypes.string,
-    options: PropTypes.arrayOf(PropTypes.string),
+    options: PropTypes.array,
     onChange: PropTypes.func
 };
 
-export default a;
+export default Select;

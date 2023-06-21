@@ -1,13 +1,14 @@
-import React from "react";
+import React from 'react';
 
-import PageContainer from "../components/page/container/PageContainer";
-import PageHeader from "../components/page/header/PageHeader";
-import PageContent from "../components/page/content/PageContent";
-// import Dashboard from "./Dashboard";
-import Controls from "../components/controls/Controls";
-import Track from "../components/track/Track";
-import { SongContextProvider } from "../contexts/SongContext";
-import SongControls from "../components/song-controls/SongControls";
+import { SongContextProvider } from '../contexts/SongContext';
+
+import { mockBlocks } from '../consts/mocks';
+
+import PageContainer from '../components/page/container/PageContainer';
+import PageHeader from '../components/page/header/PageHeader';
+import PageContent from '../components/page/content/PageContent';
+import SongControls from '../components/song-controls/SongControls';
+import Track from '../components/track/Track';
 
 const Home = () => {
     return (
@@ -16,8 +17,8 @@ const Home = () => {
             <PageContent>
                 <SongContextProvider>
                     <SongControls />
+                    <Track defaultBlocks={mockBlocks} />
                     <Track />
-                    <Controls />
                 </SongContextProvider>
             </PageContent>
         </PageContainer>

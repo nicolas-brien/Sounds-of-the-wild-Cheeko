@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 
 const SongContext = React.createContext();
 
@@ -43,6 +44,10 @@ const SongContextProvider = ({ children }) => {
     const value = { isPlaying, duration, cursor, play, pause, stop };
 
     return <SongContext.Provider value={value}>{children}</SongContext.Provider>;
+};
+
+SongContextProvider.propTypes = {
+    children: PropTypes.any,
 };
 
 const useSong = () => {

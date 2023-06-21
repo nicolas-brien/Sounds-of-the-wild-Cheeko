@@ -7,12 +7,11 @@ import { useSong } from '../../contexts/SongContext';
 import './song-controls.scss';
 
 const SongControls = () => {
-    const { play, pause, stop } = useSong();
+    const { play, pause, stop, isPlaying } = useSong();
 
     return (
         <div className="song-controls">
-            <Button onClick={play}>Play</Button>
-            <Button onClick={pause}>Pause</Button>
+            <Button onClick={isPlaying ? pause : play}>{isPlaying ? 'Pause' : 'Play'}</Button>
             <Button onClick={stop}>Stop</Button>
         </div>
     );

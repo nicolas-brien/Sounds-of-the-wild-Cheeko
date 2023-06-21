@@ -1,0 +1,30 @@
+.block-controls {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    z-index: 999;
+
+    padding: 0.8rem;
+    border-radius: 1rem;
+
+    width: 16rem;
+    top: 7rem;
+    left: calc(-9rem + 50%);
+
+    background-color: #566e7c;
+    cursor: initial;
+
+    &__controls {
+        display: inline-flex;
+        gap: 0.8rem 0.8rem;
+        justify-content: center;
+    }
+
+    &__modifiers {
+        color: #fff;
+    }
+
+    p {
+        margin-bottom: 0.4rem;
+    }
+}

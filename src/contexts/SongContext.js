@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 
 const SongContext = React.createContext();
 
-const delay = 10;
-
 const SongContextProvider = ({ children }) => {
-    const [duration] = useState(1800);
+    const [delay, setDelay] = useState(10);
+    const [duration, setDuration] = useState(2000);
 
     const [isPlaying, setIsPlaying] = useState(false);
     const [cursor, setCursor] = useState(0);
@@ -41,7 +40,7 @@ const SongContextProvider = ({ children }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isPlaying, cursor]);
 
-    const value = { isPlaying, duration, delay, cursor, play, pause, stop };
+    const value = { isPlaying, duration, setDuration, delay, setDelay, cursor, play, pause, stop };
 
     return <SongContext.Provider value={value}>{children}</SongContext.Provider>;
 };

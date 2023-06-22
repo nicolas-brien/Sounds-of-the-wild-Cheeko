@@ -5,12 +5,15 @@ import Draggable from 'react-draggable';
 import BlockControls from '../controls/BlockControls';
 
 import './block.scss';
-import Button from '../button/Button';
 
-const Block = ({ block, delay, delayPx, onSave, selected, onSelect, onDeselect, onDrop }) => {
+const Block = ({ block, delay, delayPx, onSave, selected, onSelect, onDeselect, onDragRelease, onDelete }) => {
     const classNames = 'block' + (selected ? ' block--selected' : '');
 
-    const select = () => {
+    const handleDelete = () => {
+        onDelete(block.index);
+    };
+
+    const handleSelect = () => {
         selected ? onDeselect() : onSelect();
     };
 
@@ -26,8 +29,8 @@ const Block = ({ block, delay, delayPx, onSave, selected, onSelect, onDeselect, 
         onDeselect();
     };
 
-    const handleDrop = (_, pos) => {
-        onDrop(pos, block);
+    const handleDragRelease = (_, pos) => {
+        onDragRelease(pos, block);
     };
 
     const style = {
@@ -40,7 +43,7 @@ const Block = ({ block, delay, delayPx, onSave, selected, onSelect, onDeselect, 
             grid={[delayPx]}
             bounds={'parent'}
             position={{ x: (block.beg / delay) * delayPx, y: 0 }}
-            onStop={handleDrop}
+            onStop={handleDragRelease}
         >
             <div className={classNames} style={style}>
                 <div className="block__content">
@@ -48,15 +51,16 @@ const Block = ({ block, delay, delayPx, onSave, selected, onSelect, onDeselect, 
                     <br />
                     {block.freq}hz
                     <br />
-                    {block.gain}/100
+                    {block.gain}%
                     <br />
                     {block.type}
                     <br />
                     {block.osc}
                 </div>
-                <Button className="block__edit-button" onClick={select}>
-                    E
-                </Button>
+                <div className="block__buttons">
+                    <div onClick={handleDelete}>X</div>
+                    <div onClick={handleSelect}>E</div>
+                </div>
                 {selected && (
                     <BlockControls
                         freq={block.freq}
@@ -88,7 +92,8 @@ Block.propTypes = {
     selected: PropTypes.bool,
     onSelect: PropTypes.func,
     onDeselect: PropTypes.func,
-    onDrop: PropTypes.func,
+    onDragRelease: PropTypes.func,
+    onDelete: PropTypes.func,
 };
 
 export default Block;

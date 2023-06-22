@@ -5,27 +5,27 @@ import { useFrequency } from 'react-frequency';
 import { useSong } from '../../contexts/SongContext';
 import defaultSound from '../../consts/defaultSound';
 import defaultBlock from '../../consts/defaultBlock';
+import { mockBlocks } from '../../consts/mocks';
 
 import Block from '../block/Block';
 import Button from '../button/Button';
 
 import './track.scss';
 
-const Track = ({ defaultBlocks }) => {
+const Track = ({ onDelete }) => {
     const { isPlaying, cursor, duration, delay } = useSong();
 
     const ref = useRef();
     const [delayPx, setTickPx] = useState(0);
-
     const [muted, setMuted] = useState(false);
-    const [blocks, setBlocks] = useState(defaultBlocks);
+
+    const [blocks, setBlocks] = useState();
     const [selectedBlock, setSelectedBlock] = useState();
 
     const [currentFreq, setCurrentFreq] = useState(defaultSound.frequency);
     const [currentGain, setCurrentGain] = useState(defaultSound.gain);
     const [currentType, setCurrentType] = useState(defaultSound.type);
     const [currentOsc, setCurrentOsc] = useState(defaultSound.oscillator);
-
     const { start, stop, playing } = useFrequency({
         hz: currentFreq,
         gain: currentGain / 100,
@@ -36,10 +36,9 @@ const Track = ({ defaultBlocks }) => {
     useEffect(() => {
         if (ref.current) {
             let ratio = delay / duration;
-            // setTickPx(Math.floor(ref.current.clientWidth * ratio));
             setTickPx(ref.current.clientWidth * ratio);
         }
-    }, [ref.current?.clientWidth]);
+    }, [ref.current?.clientWidth, delay, duration]);
 
     useEffect(() => {
         if (blocks && !muted && isPlaying) {
@@ -73,7 +72,19 @@ const Track = ({ defaultBlocks }) => {
         setMuted(!muted);
     };
 
-    const createBlock = () => {
+    const handleFillMockBlocks = () => {
+        setBlocks(mockBlocks);
+    };
+
+    const handleDeleteTrack = () => {
+        onDelete();
+    };
+
+    const handleDeleteBlock = (i) => {
+        setBlocks((state) => state.filter((b) => b.index !== i));
+    };
+
+    const handleCreateBlock = () => {
         let block = { ...defaultBlock, index: blocks?.length ?? 0 };
         setBlocks((b) => {
             if (b) {
@@ -83,7 +94,7 @@ const Track = ({ defaultBlocks }) => {
         });
     };
 
-    const saveBlock = (block) => {
+    const handleSaveBlock = (block) => {
         const updatedBlocks = blocks.map((b, i) => {
             if (i === block.index) {
                 return {
@@ -120,11 +131,12 @@ const Track = ({ defaultBlocks }) => {
                     len={b.len}
                     delay={delay}
                     delayPx={delayPx}
-                    onSave={saveBlock}
+                    onSave={handleSaveBlock}
                     selected={selectedBlock === b.index}
                     onSelect={() => setSelectedBlock(b.index)}
                     onDeselect={() => setSelectedBlock(undefined)}
-                    onDrop={handleDragDrop}
+                    onDragRelease={handleDragDrop}
+                    onDelete={handleDeleteBlock}
                 />
             ));
         }
@@ -133,10 +145,12 @@ const Track = ({ defaultBlocks }) => {
     return (
         <div className="track">
             <div className="track__controls">
+                <Button onClick={handleDeleteTrack}>X</Button>
                 <Button onClick={toggleMute} style={{ textDecorationLine: muted ? 'line-through' : 'none' }}>
                     M
                 </Button>
-                <Button onClick={createBlock}>+</Button>
+                <Button onClick={handleCreateBlock}>+</Button>
+                <Button onClick={handleFillMockBlocks}>♭</Button>
             </div>
             <div ref={ref} className="track__content">
                 {renderBlocks()}
@@ -147,7 +161,7 @@ const Track = ({ defaultBlocks }) => {
 };
 
 Track.propTypes = {
-    defaultBlocks: PropTypes.array,
+    onDelete: PropTypes.func,
 };
 
 export default Track;

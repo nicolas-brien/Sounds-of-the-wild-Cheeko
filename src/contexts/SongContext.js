@@ -41,7 +41,7 @@ const SongContextProvider = ({ children }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isPlaying, cursor]);
 
-    const value = { isPlaying, duration, cursor, play, pause, stop };
+    const value = { isPlaying, duration, delay, cursor, play, pause, stop };
 
     return <SongContext.Provider value={value}>{children}</SongContext.Provider>;
 };

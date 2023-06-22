@@ -11,11 +11,12 @@ import Oscillators from '../../consts/oscillators';
 
 import './block-controls.scss';
 
-const BlockControls = ({ freq, gain, type, osc, onSave }) => {
+const BlockControls = ({ freq, gain, type, osc, len, onSave }) => {
     const [localFreq, setLocalFreq] = useState(freq);
     const [localGain, setLocalGain] = useState(gain);
     const [localType, setLocalType] = useState(type);
     const [localOsc, setLocalOsc] = useState(osc);
+    const [localLen, setLocalLen] = useState(len / 100);
 
     const { start, stop, playing } = useFrequency({
         hz: localFreq,
@@ -33,14 +34,19 @@ const BlockControls = ({ freq, gain, type, osc, onSave }) => {
         setLocalGain(gain);
         setLocalType(type);
         setLocalOsc(osc);
+        setLocalLen(len / 100);
     };
 
     const handleSave = () => {
-        onSave({ freq: localFreq, gain: localGain, type: localType, osc: localOsc });
+        onSave({ freq: localFreq, gain: localGain, type: localType, osc: localOsc, len: localLen * 100 });
     };
 
     const handleFrequencyChange = (v) => {
         setLocalFreq(v);
+    };
+
+    const handleFrequencyChange2 = (v) => {
+        setLocalFreq(v.target.value);
     };
 
     const handleGainChange = (v) => {
@@ -55,6 +61,10 @@ const BlockControls = ({ freq, gain, type, osc, onSave }) => {
         setLocalOsc(v.value);
     };
 
+    const handleLengthChange = (v) => {
+        setLocalLen(v);
+    };
+
     return (
         <div className="block-controls">
             <div className="block-controls__controls">
@@ -63,10 +73,13 @@ const BlockControls = ({ freq, gain, type, osc, onSave }) => {
                 <Button onClick={handleSave}>Save</Button>
             </div>
             <div className="block-controls__modifiers"></div>
-            <p>Frequency: {localFreq}</p>
+            <p>Frequency:</p>
+            <input value={localFreq} onChange={handleFrequencyChange2} type="number" />
             <Slider min={50} max={800} value={localFreq} onChange={handleFrequencyChange} />
             <p>Gain: {localGain}</p>
             <Slider min={0} max={100} value={localGain} onChange={handleGainChange} />
+            <p>Length: {localLen * 100}</p>
+            <Slider min={0} max={10} value={localLen} marks onChange={handleLengthChange} />
             <p>Type</p>
             <Select value={localType} options={Types} onChange={handleTypeChange} />
             <p>Oscillator</p>
@@ -80,6 +93,7 @@ BlockControls.propTypes = {
     gain: PropTypes.number,
     type: PropTypes.string,
     osc: PropTypes.string,
+    len: PropTypes.number,
     onSave: PropTypes.func,
 };
 

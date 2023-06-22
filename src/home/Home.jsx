@@ -13,12 +13,11 @@ import Track from '../components/track/Track';
 const Home = () => {
     return (
         <PageContainer>
-            <PageHeader title="Welcome to Hymn" />
+            <PageHeader title="Beep boop" />
             <PageContent>
                 <SongContextProvider>
                     <SongControls />
                     <Track defaultBlocks={mockBlocks} />
-                    <Track />
                 </SongContextProvider>
             </PageContent>
         </PageContainer>

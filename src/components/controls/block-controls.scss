@@ -1,14 +1,13 @@
 .block-controls {
-    position: absolute;
+    position: relative;
     display: flex;
     flex-direction: column;
-    z-index: 999;
 
     padding: 0.8rem;
     border-radius: 1rem;
 
     width: 16rem;
-    top: 7rem;
+    top: 0.2rem;
     left: calc(-9rem + 50%);
 
     background-color: #566e7c;

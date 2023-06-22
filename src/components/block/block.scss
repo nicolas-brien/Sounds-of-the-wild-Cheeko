@@ -1,10 +1,7 @@
 .block {
     position: absolute;
-    top: 10%;
-    height: 70%;
-    padding: 0.4rem;
-
-    font-size: 0.8rem;
+    top: 5%;
+    height: 90%;
 
     cursor: grab;
     border: black 1px solid;
@@ -15,5 +12,29 @@
     &:hover,
     &--selected {
         background-color: #566e7c;
+    }
+
+    &__content {
+        padding: 0.4rem;
+
+        font-size: 0.8rem;
+        z-index: 4;
+    }
+
+    &__edit-button {
+        position: absolute;
+        top: 0.2rem;
+        right: 0.2rem;
+
+        padding: 0rem;
+        width: 0.8rem;
+        height: 0.8rem;
+
+        font-size: 0.6rem;
+        text-align: center;
+
+        border: 1px #fff solid;
+        border-radius: 0.2rem;
+        cursor: pointer;
     }
 }

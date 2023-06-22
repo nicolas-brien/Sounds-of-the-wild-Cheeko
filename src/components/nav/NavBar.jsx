@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react';
 
-import NavLink from "./NavLink";
+import NavLink from './NavLink';
 
-import "./nav-bar.scss";
+import './nav-bar.scss';
 
 const NavBar = () => {
     return (
         <div className="nav-bar">
-            <NavLink to="/">Hymn</NavLink>
+            <NavLink to="/">Home</NavLink>
             <NavLink to="settings">Settings</NavLink>
         </div>
     );

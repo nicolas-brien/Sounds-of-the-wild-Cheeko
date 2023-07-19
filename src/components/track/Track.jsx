@@ -68,6 +68,20 @@ const Track = ({ onDelete }) => {
         }
     }, [cursor, isPlaying]);
 
+    const validateChange = (newBlock) => {
+        const previousBlock = blocks.find((b) => b.index === newBlock.index);
+        const overlappedBlocks = blocks.filter(
+            (b) =>
+                b.index !== newBlock.index &&
+                (b.beg === newBlock.beg ||
+                    b.beg + b.len === newBlock.beg + newBlock.len ||
+                    (b.beg < newBlock.beg && newBlock.beg < b.beg + b.len) ||
+                    (b.beg < newBlock.beg + newBlock.len && newBlock.beg + newBlock.len < b.beg + b.len))
+        );
+
+        return previousBlock && overlappedBlocks.length === 0;
+    };
+
     const toggleMute = () => {
         setMuted(!muted);
     };
@@ -95,30 +109,35 @@ const Track = ({ onDelete }) => {
     };
 
     const handleSaveBlock = (block) => {
-        const updatedBlocks = blocks.map((b, i) => {
-            if (i === block.index) {
-                return {
-                    ...b,
-                    ...block,
-                };
-            }
-            return b;
-        });
-        setBlocks(updatedBlocks);
+        if (validateChange(block)) {
+            const updatedBlocks = blocks.map((b, i) => {
+                if (i === block.index) {
+                    return {
+                        ...b,
+                        ...block,
+                    };
+                }
+                return b;
+            });
+            setBlocks(updatedBlocks);
+        }
     };
 
     const handleDragDrop = (pos, block) => {
-        let newBlocks = blocks.map((b) => {
-            if (b.index === block.index) {
-                return {
-                    ...block,
-                    beg: (pos.x / delayPx) * delay,
-                };
-            }
+        const newBlock = {
+            ...block,
+            beg: Math.round((pos.x / delayPx) * delay),
+        };
+        if (validateChange(newBlock)) {
+            let newBlocks = blocks.map((b) => {
+                if (b.index === block.index) {
+                    return newBlock;
+                }
 
-            return b;
-        });
-        setBlocks(newBlocks);
+                return b;
+            });
+            setBlocks(newBlocks);
+        }
     };
 
     const renderBlocks = () => {

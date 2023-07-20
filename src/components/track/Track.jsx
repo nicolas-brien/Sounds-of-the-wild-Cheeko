@@ -140,6 +140,41 @@ const Track = ({ onDelete }) => {
         }
     };
 
+    const handleBegDragDrop = (deltaX, block) => {
+        const newBlock = {
+            ...block,
+            beg: Math.round((deltaX / delayPx) * delay),
+            len: block.len + Math.round((deltaX / delayPx) * delay),
+        };
+        if (validateChange(newBlock)) {
+            let newBlocks = blocks.map((b) => {
+                if (b.index === block.index) {
+                    return newBlock;
+                }
+
+                return b;
+            });
+            setBlocks(newBlocks);
+        }
+    };
+
+    const handleEndDragDrop = (deltaX, block) => {
+        const newBlock = {
+            ...block,
+            len: block.len + Math.round((deltaX / delayPx) * delay),
+        };
+        if (validateChange(newBlock)) {
+            let newBlocks = blocks.map((b) => {
+                if (b.index === block.index) {
+                    return newBlock;
+                }
+
+                return b;
+            });
+            setBlocks(newBlocks);
+        }
+    };
+
     const renderBlocks = () => {
         if (blocks) {
             return blocks.map((b) => (
@@ -155,6 +190,8 @@ const Track = ({ onDelete }) => {
                     onSelect={() => setSelectedBlock(b.index)}
                     onDeselect={() => setSelectedBlock(undefined)}
                     onDragRelease={handleDragDrop}
+                    onBegDragRelease={handleBegDragDrop}
+                    onEndDragRelease={handleEndDragDrop}
                     onDelete={handleDeleteBlock}
                 />
             ));

@@ -1,10 +1,38 @@
 .song-controls {
-    display: inline-flex;
-    gap: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
 
     padding: 0.8rem;
     margin-bottom: 1.6rem;
 
     border-radius: 0.4rem;
     background-color: #7a839e;
+
+    input {
+        height: 2.4rem;
+        padding: 0 0.8rem;
+
+        border: #31576d 0.1rem solid;
+        border-radius: 0.4rem;
+    }
+
+    &__file {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.8rem;
+    }
+
+    &__params {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+    }
+
+    &__controls {
+        display: flex;
+        justify-content: center;
+        gap: 0.8rem;
+    }
 }

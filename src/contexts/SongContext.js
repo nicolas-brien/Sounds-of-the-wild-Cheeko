@@ -5,10 +5,12 @@ const SongContext = React.createContext();
 
 const SongContextProvider = ({ children }) => {
     const [delay, setDelay] = useState(10);
-    const [duration, setDuration] = useState(2000);
+    const [duration, setDuration] = useState(5000);
 
     const [isPlaying, setIsPlaying] = useState(false);
     const [cursor, setCursor] = useState(0);
+
+    const [tracks, setTracks] = useState([]);
 
     const tick = () => {
         console.log('Playing: ' + cursor + ' / ' + duration);
@@ -31,6 +33,29 @@ const SongContextProvider = ({ children }) => {
         setCursor(0);
     };
 
+    const createTrack = () => {
+        setTracks((t) => (t ? [...t, []] : [[]]));
+    };
+
+    const loadTracks = (tracks) => {
+        setTracks(tracks);
+    };
+
+    const updateTrack = (index, blocks) => {
+        setTracks((t) =>
+            t.map((b, i) => {
+                if (i === index) {
+                    return blocks;
+                }
+                return b;
+            })
+        );
+    };
+
+    const deleteTrack = (index) => {
+        setTracks((t) => t.splice(index, 1));
+    };
+
     useEffect(() => {
         if (isPlaying) {
             let id = '';
@@ -40,7 +65,22 @@ const SongContextProvider = ({ children }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isPlaying, cursor]);
 
-    const value = { isPlaying, duration, setDuration, delay, setDelay, cursor, play, pause, stop };
+    const value = {
+        tracks,
+        createTrack,
+        loadTracks,
+        updateTrack,
+        deleteTrack,
+        isPlaying,
+        duration,
+        setDuration,
+        delay,
+        setDelay,
+        cursor,
+        play,
+        pause,
+        stop,
+    };
 
     return <SongContext.Provider value={value}>{children}</SongContext.Provider>;
 };

@@ -12,14 +12,14 @@ import Button from '../button/Button';
 
 import './track.scss';
 
-const Track = ({ onDelete }) => {
-    const { isPlaying, cursor, duration, delay } = useSong();
+const Track = ({ index, baseBlocks, onDelete }) => {
+    const { updateTrack, isPlaying, cursor, duration, delay } = useSong();
 
     const ref = useRef();
     const [delayPx, setTickPx] = useState(0);
     const [muted, setMuted] = useState(false);
 
-    const [blocks, setBlocks] = useState();
+    const [blocks, setBlocks] = useState(baseBlocks);
     const [selectedBlock, setSelectedBlock] = useState();
 
     const [currentFreq, setCurrentFreq] = useState(defaultSound.frequency);
@@ -68,6 +68,11 @@ const Track = ({ onDelete }) => {
         }
     }, [cursor, isPlaying]);
 
+    const saveBlocks = (blocks) => {
+        setBlocks(blocks);
+        updateTrack(index, blocks);
+    };
+
     const validateChange = (newBlock) => {
         const previousBlock = blocks.find((b) => b.index === newBlock.index);
         const overlappedBlocks = blocks.filter(
@@ -87,7 +92,7 @@ const Track = ({ onDelete }) => {
     };
 
     const handleFillMockBlocks = () => {
-        setBlocks(mockBlocks);
+        saveBlocks(mockBlocks);
     };
 
     const handleDeleteTrack = () => {
@@ -95,17 +100,14 @@ const Track = ({ onDelete }) => {
     };
 
     const handleDeleteBlock = (i) => {
-        setBlocks((state) => state.filter((b) => b.index !== i));
+        let newBlocks = blocks.map((state) => state.filter((b) => b.index !== i));
+        saveBlocks(newBlocks);
     };
 
     const handleCreateBlock = () => {
         let block = { ...defaultBlock, index: blocks?.length ?? 0 };
-        setBlocks((b) => {
-            if (b) {
-                return [...b, block];
-            }
-            return [defaultBlock];
-        });
+        let newBlocks = blocks ? [...blocks, block] : [defaultBlock];
+        saveBlocks(newBlocks);
     };
 
     const handleSaveBlock = (block) => {
@@ -119,7 +121,7 @@ const Track = ({ onDelete }) => {
                 }
                 return b;
             });
-            setBlocks(updatedBlocks);
+            saveBlocks(updatedBlocks);
         }
     };
 
@@ -136,7 +138,7 @@ const Track = ({ onDelete }) => {
 
                 return b;
             });
-            setBlocks(newBlocks);
+            saveBlocks(newBlocks);
         }
     };
 
@@ -154,7 +156,7 @@ const Track = ({ onDelete }) => {
 
                 return b;
             });
-            setBlocks(newBlocks);
+            saveBlocks(newBlocks);
         }
     };
 
@@ -171,7 +173,7 @@ const Track = ({ onDelete }) => {
 
                 return b;
             });
-            setBlocks(newBlocks);
+            saveBlocks(newBlocks);
         }
     };
 
@@ -217,6 +219,8 @@ const Track = ({ onDelete }) => {
 };
 
 Track.propTypes = {
+    index: PropTypes.number.isRequired,
+    baseBlocks: PropTypes.any,
     onDelete: PropTypes.func,
 };
 

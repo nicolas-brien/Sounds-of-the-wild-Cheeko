@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-import { SongContextProvider } from '../contexts/SongContext';
+import { useSong } from '../contexts/SongContext';
 
 import PageContainer from '../components/page/container/PageContainer';
 import PageHeader from '../components/page/header/PageHeader';
@@ -10,27 +10,17 @@ import Track from '../components/track/Track';
 import Button from '../components/button/Button';
 
 const Home = () => {
-    const [tracks, setTracks] = useState(['wow']);
-
-    const handleAddTrack = () => {
-        setTracks((t) => [...t, 'wow']);
-    };
-
-    const handleDeleteTrack = (i) => {
-        setTracks((t) => t.splice(i, 1));
-    };
+    const { tracks, createTrack, deleteTrack } = useSong();
 
     return (
         <PageContainer>
             <PageHeader title="Beep boop" />
             <PageContent>
-                <SongContextProvider>
-                    <SongControls />
-                    {tracks.map((t, i) => (
-                        <Track key={i} onDelete={() => handleDeleteTrack(i)} />
-                    ))}
-                    <Button onClick={handleAddTrack}>Add track</Button>
-                </SongContextProvider>
+                <SongControls />
+                {tracks.map((t, i) => (
+                    <Track key={i} index={i} baseBlocks={t} onDelete={() => deleteTrack(i)} />
+                ))}
+                <Button onClick={createTrack}>Add track</Button>
             </PageContent>
         </PageContainer>
     );

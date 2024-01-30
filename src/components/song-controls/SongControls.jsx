@@ -6,11 +6,13 @@ import { useSong } from '../../contexts/SongContext';
 import Button from '../button/Button';
 import Input from '../input/Input';
 import IconButton from '../button/IconButton';
+
 import { ReactComponent as Trash } from '../../svg/trash.svg';
 import { ReactComponent as Gear } from '../../svg/gear.svg';
 import { ReactComponent as Play } from '../../svg/play.svg';
 import { ReactComponent as Pause } from '../../svg/pause.svg';
 import { ReactComponent as Stop } from '../../svg/stop.svg';
+
 import './song-controls.scss';
 
 const SongControls = () => {

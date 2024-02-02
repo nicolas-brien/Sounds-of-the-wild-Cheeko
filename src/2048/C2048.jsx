@@ -133,51 +133,99 @@ const C2048 = () => {
     };
 
     const handleLeft = () => {
-        const new0 = s[0];
-        const new1 = s[1];
-        const new2 = s[2];
-        const new3 = s[3];
+        var firstCol = [s[0], s[1], s[2], s[3]];
+        var secondCol = [s[4], s[5], s[6], s[7]];
+        var thridCol = [s[8], s[9], s[10], s[11]];
+        var frouthCol = [s[12], s[13], s[14], s[15]];
 
-        const new4 = s[4];
-        const new5 = s[5];
-        const new6 = s[6];
-        const new7 = s[7];
+        console.log(firstCol);
+        firstCol.sort((a, b) => {
+            return a === 0 ? 1 : -1;
+        });
+        var uno = firstCol.reduce(squeeze);
+        console.log(firstCol);
 
-        const new8 = s[8];
-        const new9 = s[9];
-        const new10 = s[10];
-        const new11 = s[11];
+        secondCol.sort((a, b) => {
+            return a === 0 ? 1 : -1;
+        });
+        var dos = secondCol.reduce(squeeze);
 
-        const new12 = 2;
-        const new13 = s[13];
-        const new14 = 0;
-        const new15 = s[15];
+        thridCol.sort((a, b) => {
+            return a === 0 ? 1 : -1;
+        });
+        var tres = thridCol.reduce(squeeze);
 
-        setS([new0, new1, new2, new3, new4, new5, new6, new7, new8, new9, new10, new11, new12, new13, new14, new15]);
+        frouthCol.sort((a, b) => {
+            return a === 0 ? 1 : -1;
+        });
+        var quattro = frouthCol.reduce(squeeze);
+
+        setS([
+            uno[0],
+            uno[1],
+            uno[2],
+            uno[3],
+            dos[0],
+            dos[1],
+            dos[2],
+            dos[3],
+            tres[0],
+            tres[1],
+            tres[2],
+            tres[3],
+            quattro[0],
+            quattro[1],
+            quattro[2],
+            quattro[3],
+        ]);
     };
 
     const handleRight = () => {
-        const new0 = s[0];
-        const new1 = s[1];
-        const new2 = s[2];
-        const new3 = s[3];
+        var firstCol = [s[3], s[2], s[1], s[0]];
+        var secondCol = [s[7], s[6], s[5], s[4]];
+        var thridCol = [s[11], s[10], s[9], s[8]];
+        var frouthCol = [s[15], s[14], s[13], s[12]];
 
-        const new4 = s[4];
-        const new5 = s[5];
-        const new6 = s[6];
-        const new7 = s[7];
+        console.log(firstCol);
+        firstCol.sort((a, b) => {
+            return a === 0 ? 1 : -1;
+        });
+        var uno = firstCol.reduce(squeeze);
+        console.log(firstCol);
 
-        const new8 = 0;
-        const new9 = s[9];
-        const new10 = s[10];
-        const new11 = 2;
+        secondCol.sort((a, b) => {
+            return a === 0 ? 1 : -1;
+        });
+        var dos = secondCol.reduce(squeeze);
 
-        const new12 = s[12];
-        const new13 = s[13];
-        const new14 = 0;
-        const new15 = 2;
+        thridCol.sort((a, b) => {
+            return a === 0 ? 1 : -1;
+        });
+        var tres = thridCol.reduce(squeeze);
 
-        setS([new0, new1, new2, new3, new4, new5, new6, new7, new8, new9, new10, new11, new12, new13, new14, new15]);
+        frouthCol.sort((a, b) => {
+            return a === 0 ? 1 : -1;
+        });
+        var quattro = frouthCol.reduce(squeeze);
+
+        setS([
+            uno[3],
+            uno[2],
+            uno[1],
+            uno[0],
+            dos[3],
+            dos[2],
+            dos[1],
+            dos[0],
+            tres[3],
+            tres[2],
+            tres[1],
+            tres[0],
+            quattro[3],
+            quattro[2],
+            quattro[1],
+            quattro[0],
+        ]);
     };
 
     useInputs(() => {}, handleUp, ['ArrowUp']);

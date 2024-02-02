@@ -48,20 +48,20 @@ const LivePiano = () => {
         isDo2Playing,
     } = usePiano();
 
-    useInputs(startDo, stopDo, ['KeyA']);
-    useInputs(startDoRe, stopDoRe, ['KeyW']);
-    useInputs(startRe, stopRe, ['KeyS']);
-    useInputs(startReMi, stopReMi, ['KeyE']);
-    useInputs(startMi, stopMi, ['KeyD']);
+    useInputs(startDo, stopDo, ['KeyA', 'Backquote']);
+    useInputs(startDoRe, stopDoRe, ['KeyW', 'Digit1']);
+    useInputs(startRe, stopRe, ['KeyS', 'Digit2']);
+    useInputs(startReMi, stopReMi, ['KeyE', 'Digit3']);
+    useInputs(startMi, stopMi, ['KeyD', 'Digit4']);
 
-    useInputs(startFa, stopFa, ['KeyF']);
-    useInputs(startFaSol, stopFaSol, ['KeyT']);
-    useInputs(startSol, stopSol, ['KeyG']);
-    useInputs(startSolLa, stopSolLa, ['KeyY']);
-    useInputs(startLa, stopLa, ['KeyH']);
-    useInputs(startLaSi, stopLaSi, ['KeyU']);
-    useInputs(startSi, stopSi, ['KeyJ']);
-    useInputs(startDo2, stopDo2, ['KeyK']);
+    useInputs(startFa, stopFa, ['KeyF', 'Digit5']);
+    useInputs(startFaSol, stopFaSol, ['KeyT', 'Digit6']);
+    useInputs(startSol, stopSol, ['KeyG', 'Digit7']);
+    useInputs(startSolLa, stopSolLa, ['KeyY', 'Digit8']);
+    useInputs(startLa, stopLa, ['KeyH', 'Digit9']);
+    useInputs(startLaSi, stopLaSi, ['KeyU', 'Digit0']);
+    useInputs(startSi, stopSi, ['KeyJ', 'Minus']);
+    useInputs(startDo2, stopDo2, ['KeyK', 'Equal']);
 
     return (
         <div className="live-piano">

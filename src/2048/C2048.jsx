@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import useKeyup from '../hooks/keyup';
+import useInputs from '../hooks/useInputs';
 
 import Button from '../components/button/Button';
 import PageContainer from '../components/page/container/PageContainer';
@@ -266,13 +266,13 @@ const C2048 = () => {
         setPreviousMap(null);
     };
 
-    useKeyup(handleUp, 'ArrowUp');
-    useKeyup(handleDown, 'ArrowDown');
-    useKeyup(handleLeft, 'ArrowLeft');
-    useKeyup(handleRight, 'ArrowRight');
-    useKeyup(undo, 'KeyZ');
-    useKeyup(redo, 'KeyY');
-    useKeyup(restart, 'KeyR');
+    useInputs(() => {}, handleUp, ['ArrowUp']);
+    useInputs(() => {}, handleDown, ['ArrowDown']);
+    useInputs(() => {}, handleLeft, ['ArrowLeft']);
+    useInputs(() => {}, handleRight, ['ArrowRight']);
+    useInputs(() => {}, undo, ['KeyZ']);
+    useInputs(() => {}, redo, ['KeyY']);
+    useInputs(() => {}, restart, ['KeyR']);
 
     return (
         <PageContainer className="c2048">

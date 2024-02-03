@@ -7,13 +7,13 @@
 // 32   etc
 
 
-// 2048 ronde
-// 1024 blanche
-// 512  noire
-// 256  croche
-// 128  demi croche
-// 64   quart
-// 32   etc
+// 128 ronde
+// 64 blanche
+// 32  noire
+// 16  croche
+// 8  croche 2 barres
+// 4   croche 3 barres
+// 2   croche 4 barres
 
 
 
@@ -26,56 +26,3 @@
 4, 5, 6, 7
 8, 9, 10, 11
 12, 13, 14, 15
-
-
-4 moves
-
-up =======================================
-0 -> 0 4 8 12
-1 -> 1 5 9 13
-2 -> 2 6 10 14
-3 -> 3 7 11 15
-
-
-0 = 0 + 4 || 0 + 8 || 0 + 12 || 4 || 8 || 12 ||
-
-
-down ==================================
-left
-right
-
-
-
-
-
-modulos
-
-    
-
-
-
-last index > 0
-
-(init)
-index = -1
-.reduce((ret, cur) => {
-
-})
-A>0? index = 0, next
-
-if 0, next
-
-B>0? compare with elemAtIndex(index)
-     insert before || after elem
-     set index
-     next
-
-if 0, next
-
-C>0? ...
-
-
-
-
-
-

@@ -13,4 +13,16 @@
         background-color: #bac5c9;
         color: #bac5c9;
     }
+
+    &__content {
+        fill: #000;
+        svg {
+            width: 6rem;
+            height: 6rem;
+
+            &.white {
+                fill: #fff;
+            }
+        }
+    }
 }

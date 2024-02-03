@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import useInputs from '../hooks/useInputs';
 
+import Button from '../components/button/Button';
 import PageContainer from '../components/page/container/PageContainer';
 import PageContent from '../components/page/content/PageContent';
-import Button from '../components/button/Button';
+
+import Board from './Board';
 
 import './c2048.scss';
-import Tile from './Tile';
 
 // map = [
 //     0, 0, 0, 0,
@@ -20,7 +21,8 @@ const def = [0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 2, 0];
 const C2048 = () => {
     const [previousMap, setPreviousMap] = useState(null);
     const [redoMap, setRedoMap] = useState(null);
-    const [s, setS] = useState(def);
+    const [tiles, setTiles] = useState(def);
+    const [shownTiles, setShownTiles] = useState(def);
 
     const comp = (a, b) => {
         if (a === 0 && b > 0) return [b, 0];
@@ -39,25 +41,25 @@ const C2048 = () => {
     };
 
     const beginMove = () => {
-        setPreviousMap(s);
+        setPreviousMap(tiles);
         setRedoMap(null);
     };
 
     const endMove = () => {
-        var empties = s.reduce((t, v, i) => {
+        var empties = tiles.reduce((t, v, i) => {
             if (v === 0) return t.concat(i);
             return t;
         }, []);
         var index = empties[Math.floor(Math.random() * empties.length)];
-        setS((s) => s.map((v, i) => (i === index ? 2 : v)));
+        setTiles((s) => s.map((v, i) => (i === index ? 2 : v)));
     };
 
     const handleUp = () => {
         beginMove();
-        var firstCol = [s[0], s[4], s[8], s[12]];
-        var secondCol = [s[1], s[5], s[9], s[13]];
-        var thridCol = [s[2], s[6], s[10], s[14]];
-        var frouthCol = [s[3], s[7], s[11], s[15]];
+        var firstCol = [tiles[0], tiles[4], tiles[8], tiles[12]];
+        var secondCol = [tiles[1], tiles[5], tiles[9], tiles[13]];
+        var thridCol = [tiles[2], tiles[6], tiles[10], tiles[14]];
+        var frouthCol = [tiles[3], tiles[7], tiles[11], tiles[15]];
 
         firstCol.sort((a, _) => {
             return a === 0 ? 1 : -1;
@@ -79,7 +81,7 @@ const C2048 = () => {
         });
         var quattro = frouthCol.reduce(squeeze);
 
-        setS([
+        setTiles([
             uno[0],
             dos[0],
             tres[0],
@@ -102,10 +104,10 @@ const C2048 = () => {
 
     const handleDown = () => {
         beginMove();
-        var firstCol = [s[12], s[8], s[4], s[0]];
-        var secondCol = [s[13], s[9], s[5], s[1]];
-        var thridCol = [s[14], s[10], s[6], s[2]];
-        var frouthCol = [s[15], s[11], s[7], s[3]];
+        var firstCol = [tiles[12], tiles[8], tiles[4], tiles[0]];
+        var secondCol = [tiles[13], tiles[9], tiles[5], tiles[1]];
+        var thridCol = [tiles[14], tiles[10], tiles[6], tiles[2]];
+        var frouthCol = [tiles[15], tiles[11], tiles[7], tiles[3]];
 
         firstCol.sort((a, b) => {
             return a === 0 ? 1 : -1;
@@ -127,7 +129,7 @@ const C2048 = () => {
         });
         var quattro = frouthCol.reduce(squeeze);
 
-        setS([
+        setTiles([
             uno[3],
             dos[3],
             tres[3],
@@ -150,10 +152,10 @@ const C2048 = () => {
 
     const handleLeft = () => {
         beginMove();
-        var firstCol = [s[0], s[1], s[2], s[3]];
-        var secondCol = [s[4], s[5], s[6], s[7]];
-        var thridCol = [s[8], s[9], s[10], s[11]];
-        var frouthCol = [s[12], s[13], s[14], s[15]];
+        var firstCol = [tiles[0], tiles[1], tiles[2], tiles[3]];
+        var secondCol = [tiles[4], tiles[5], tiles[6], tiles[7]];
+        var thridCol = [tiles[8], tiles[9], tiles[10], tiles[11]];
+        var frouthCol = [tiles[12], tiles[13], tiles[14], tiles[15]];
 
         firstCol.sort((a, b) => {
             return a === 0 ? 1 : -1;
@@ -175,7 +177,7 @@ const C2048 = () => {
         });
         var quattro = frouthCol.reduce(squeeze);
 
-        setS([
+        setTiles([
             uno[0],
             uno[1],
             uno[2],
@@ -198,10 +200,10 @@ const C2048 = () => {
 
     const handleRight = () => {
         beginMove();
-        var firstCol = [s[3], s[2], s[1], s[0]];
-        var secondCol = [s[7], s[6], s[5], s[4]];
-        var thridCol = [s[11], s[10], s[9], s[8]];
-        var frouthCol = [s[15], s[14], s[13], s[12]];
+        var firstCol = [tiles[3], tiles[2], tiles[1], tiles[0]];
+        var secondCol = [tiles[7], tiles[6], tiles[5], tiles[4]];
+        var thridCol = [tiles[11], tiles[10], tiles[9], tiles[8]];
+        var frouthCol = [tiles[15], tiles[14], tiles[13], tiles[12]];
 
         firstCol.sort((a, b) => {
             return a === 0 ? 1 : -1;
@@ -217,13 +219,12 @@ const C2048 = () => {
             return a === 0 ? 1 : -1;
         });
         var tres = thridCol.reduce(squeeze);
-
         frouthCol.sort((a, b) => {
             return a === 0 ? 1 : -1;
         });
         var quattro = frouthCol.reduce(squeeze);
 
-        setS([
+        setTiles([
             uno[3],
             uno[2],
             uno[1],
@@ -246,22 +247,22 @@ const C2048 = () => {
 
     const undo = () => {
         if (previousMap) {
-            setRedoMap(s);
-            setS(previousMap);
+            setRedoMap(tiles);
+            setTiles(previousMap);
             setPreviousMap(null);
         }
     };
 
     const redo = () => {
         if (redoMap) {
-            setPreviousMap(s);
-            setS(redoMap);
+            setPreviousMap(tiles);
+            setTiles(redoMap);
             setRedoMap(null);
         }
     };
 
     const restart = () => {
-        setS(def);
+        setTiles(def);
         setPreviousMap(null);
     };
 
@@ -274,18 +275,12 @@ const C2048 = () => {
     useInputs(() => {}, restart, ['KeyR']);
 
     return (
-        <PageContainer>
+        <PageContainer className="c2048">
             <PageContent>
-                <div className="c2048">
-                    {s.map((v, i) => {
-                        return (
-                            <div className="c2048__tile" key={i}>
-                                <Tile value={v} />
-                            </div>
-                        );
-                    })}
-                </div>
-                <Button onClick={() => setS(def)}>Restart</Button>
+                <Button className="c2048__restart" onClick={() => setTiles(def)}>
+                    Restart
+                </Button>
+                <Board tiles={tiles} />
             </PageContent>
         </PageContainer>
     );

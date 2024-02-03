@@ -1,0 +1,30 @@
+.song-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+
+    padding: 0.8rem;
+    margin-bottom: 1.6rem;
+
+    border-radius: 0.4rem;
+    background-color: #7a839e;
+
+    &__file {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.8rem;
+    }
+
+    &__params {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+    }
+
+    &__controls {
+        display: flex;
+        justify-content: center;
+        gap: 0.8rem;
+    }
+}

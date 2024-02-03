@@ -1,0 +1,17 @@
+.button {
+    display: flex;
+    align-items: center;
+
+    height: 2.4rem;
+    padding: 0 0.6rem;
+
+    background-color: #31576d;
+
+    border-radius: 0.4rem;
+
+    cursor: pointer;
+
+    &:hover {
+        background-color: #476d83;
+    }
+}

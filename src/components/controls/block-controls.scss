@@ -1,0 +1,29 @@
+.block-controls {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    padding: 0.8rem;
+    border-radius: 1rem;
+
+    width: 16rem;
+    top: 0.2rem;
+    left: calc(-9rem + 50%);
+
+    background-color: #566e7c;
+    cursor: initial;
+
+    &__controls {
+        display: inline-flex;
+        gap: 0.8rem 0.8rem;
+        justify-content: center;
+    }
+
+    &__modifiers {
+        color: #fff;
+    }
+
+    p {
+        margin-bottom: 0.4rem;
+    }
+}

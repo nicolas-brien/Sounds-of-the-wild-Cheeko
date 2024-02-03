@@ -1,9 +1,20 @@
 .c2048 {
     padding-top: 16rem;
 
-    &__restart {
-        padding: 2.4rem;
+    &__btns {
+        display: inline-flex;
+        justify-content: end;
+        width: 100%;
+
         margin-bottom: 4rem;
-        font-size: 3.2rem;
+
+        & * {
+            padding: 2.4rem;
+            font-size: 3.2rem;
+        }
+
+        & *:not(:last-child) {
+            margin-right: 1.6rem;
+        }
     }
 }

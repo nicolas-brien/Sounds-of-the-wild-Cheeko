@@ -51,3 +51,31 @@ right
 modulos
 
     
+
+
+
+last index > 0
+
+(init)
+index = -1
+.reduce((ret, cur) => {
+
+})
+A>0? index = 0, next
+
+if 0, next
+
+B>0? compare with elemAtIndex(index)
+     insert before || after elem
+     set index
+     next
+
+if 0, next
+
+C>0? ...
+
+
+
+
+
+

@@ -1,12 +1,8 @@
 import React, { useEffect, useRef } from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-
 import Button from '../button/Button';
 
 import './modal.scss';
-
-const portalRoot = document.getElementById('portal-root');
 
 const Modal = ({ isShown, CTALabel, onCTA, children }) => {
     const ref = useRef(null);
@@ -25,18 +21,16 @@ const Modal = ({ isShown, CTALabel, onCTA, children }) => {
         </div>
     );
 
-    useEffect(() => {
-        ref.current = document.createElement('div');
-        portalRoot.appendChild(ref.current);
-
-        return () => {
-            portalRoot.removeChild(ref.current);
-        };
-    }, [isShown]);
-
     if (!isShown) return;
+    return modal;
 
-    return ReactDOM.createPortal(children, ref.current);
+    // useEffect(() => {
+    //     document.body.appendChild(modal);
+
+    //     return () => {
+    //         document.body.removeChild(ref.current);
+    //     };
+    // }, [isShown]);
 };
 
 Modal.propTypes = {

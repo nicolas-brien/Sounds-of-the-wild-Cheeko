@@ -3,7 +3,7 @@ import React, { useRef, useState } from 'react';
 import { useData } from '../../contexts/Data';
 import { useSong } from '../../contexts/SongContext';
 
-import Button from '../button/Button';
+// import Button from '../button/Button';
 import Input from '../input/Input';
 import IconButton from '../button/IconButton';
 
@@ -12,6 +12,8 @@ import { ReactComponent as Gear } from '../../svg/gear.svg';
 import { ReactComponent as Play } from '../../svg/play.svg';
 import { ReactComponent as Pause } from '../../svg/pause.svg';
 import { ReactComponent as Stop } from '../../svg/stop.svg';
+import { ReactComponent as Save } from '../../svg/save.svg';
+import { ReactComponent as Load } from '../../svg/load.svg';
 
 import './song-controls.scss';
 
@@ -45,19 +47,17 @@ const SongControls = () => {
     return (
         <div className="song-controls">
             <div className="song-controls__file">
-                Name: <Input value={name} onChange={setName} />
-                <Button onClick={() => save(name, tracks)}>Save</Button>
-                <Button className="song-controls__load-file" onClick={handleLoadClick}>
-                    Load
-                    <input style={{ display: 'none' }} type="file" ref={ref} onChange={loadFile} />
-                </Button>
+                <Input value={name} onChange={setName} />
+                <IconButton onClick={() => save(name, tracks)} icon={<Save />} />
+                <IconButton onClick={handleLoadClick} icon={<Load />} />
+                <input style={{ display: 'none' }} type="file" ref={ref} onChange={loadFile} />
+
                 <IconButton
                     onClick={() => {
                         setShowParams(!showParams);
                     }}
                     icon={<Gear />}
                 />
-                <IconButton onClick={onClear} icon={<Trash />} />
             </div>
             {showParams && (
                 <div className="song-controls__params">
@@ -68,6 +68,7 @@ const SongControls = () => {
             <div className="song-controls__controls">
                 <IconButton icon={isPlaying ? <Pause /> : <Play />} onClick={isPlaying ? pause : play} />
                 <IconButton icon={<Stop />} onClick={stop} />
+                <IconButton onClick={onClear} icon={<Trash />} />
             </div>
         </div>
     );

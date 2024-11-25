@@ -8,7 +8,7 @@ import Select from '../select/Select';
 
 import Types from '../../consts/types';
 import Oscillators from '../../consts/oscillators';
-import Piano from '../piano/Piano';
+import PianoKeys from '../piano/PianoKeys';
 
 import './block-controls.scss';
 
@@ -75,7 +75,7 @@ const BlockControls = ({ freq, gain, type, osc, len, onSave }) => {
             </div>
             <div className="block-controls__modifiers"></div>
             <p>Piano</p>
-            <Piano onSelect={handleFrequencyChange} />
+            <PianoKeys onSelect={handleFrequencyChange} />
             <p>Frequency:</p>
             <input value={localFreq} onChange={handleFrequencyChange2} type="number" />
             <Slider min={50} max={800} value={localFreq} onChange={handleFrequencyChange} />

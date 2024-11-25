@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 
 import './training.css';
 import notes from '../consts/notes';
@@ -12,14 +12,14 @@ import PageContent from '../components/page/content/PageContent';
 const Training = () => {
     const [trainingNotes, setTrainingNotes] = useState([]);
     const [currentNote, setCurrentNote] = useState(notes.C4);
-    const [freq] = useState(
-        useFrequency({
-            hz: currentNote,
-            gain: 0.7,
-            type: 'center',
-            oscillator: 'sine',
-        })
-    );
+    const { start, stop } = useFrequency({
+        hz: currentNote,
+        gain: 0.7,
+        type: 'center',
+        oscillator: 'sine',
+    });
+    var stopRef = useRef(stop);
+    stopRef.current = stop;
 
     useEffect(() => {
         if (trainingNotes.length === 0) {
@@ -34,15 +34,14 @@ const Training = () => {
 
     const handlePlay = (note) => {
         setCurrentNote(trainingNotes[note]);
-        freq.start();
+        if (note === 0) start();
         setTimeout(() => {
-            freq.stop();
-            if (note < 2) handlePlay(note + 1);
+            if (note < 2) {
+                handlePlay(note + 1);
+            } else {
+                stopRef.current();
+            }
         }, 1000);
-    };
-
-    const handleStop = () => {
-        freq.stop();
     };
 
     return (
@@ -55,7 +54,6 @@ const Training = () => {
                         <div className="training__content">
                             Guess the notes ({trainingNotes.map((n) => n + ', ')})
                             <Button onClick={() => handlePlay(0)}>Play</Button>
-                            <Button onClick={handleStop}>Stop</Button>
                             <Piano />
                         </div>
                     </div>

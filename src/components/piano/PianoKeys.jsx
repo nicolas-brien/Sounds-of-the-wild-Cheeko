@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Notes from '../../consts/notes';
+import Notes from '../../consts/pianoNotes';
 
 import './piano-keys.scss';
 

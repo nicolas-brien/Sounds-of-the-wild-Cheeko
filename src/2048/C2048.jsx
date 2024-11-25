@@ -290,13 +290,45 @@ const C2048 = () => {
         isEnded && setIsEnded(false);
     };
 
-    useInputs(() => {}, handleUp, ['ArrowUp']);
-    useInputs(() => {}, handleDown, ['ArrowDown']);
-    useInputs(() => {}, handleLeft, ['ArrowLeft']);
-    useInputs(() => {}, handleRight, ['ArrowRight']);
-    useInputs(() => {}, undo, ['KeyZ']);
-    useInputs(() => {}, redo, ['KeyY']);
-    useInputs(() => {}, restart, ['KeyR']);
+    const handleInput = (func) => {
+        if (!isEnded) func();
+    };
+
+    useInputs(
+        () => {},
+        () => handleInput(handleUp),
+        ['ArrowUp']
+    );
+    useInputs(
+        () => {},
+        () => handleInput(handleDown),
+        ['ArrowDown']
+    );
+    useInputs(
+        () => {},
+        () => handleInput(handleLeft),
+        ['ArrowLeft']
+    );
+    useInputs(
+        () => {},
+        () => handleInput(handleRight),
+        ['ArrowRight']
+    );
+    useInputs(
+        () => {},
+        () => handleInput(undo),
+        ['KeyZ']
+    );
+    useInputs(
+        () => {},
+        () => handleInput(redo),
+        ['KeyY']
+    );
+    useInputs(
+        () => {},
+        () => handleInput(restart),
+        ['KeyR']
+    );
 
     return (
         <PageContainer className="c2048">

@@ -6,9 +6,11 @@ import { SongContextProvider } from './contexts/SongContext';
 
 import NavBar from './components/nav/NavBar';
 import Home from './home/Home';
+import Training from './training/Training';
+import DAW from './daw/DAW';
 import PianoPage from './piano-page/PianoPage';
-import Settings from './settings/Settings';
 import C2048 from './2048/C2048';
+import Settings from './settings/Settings';
 
 import './App.scss';
 
@@ -21,6 +23,8 @@ export default function App() {
                         <NavBar />
                         <Routes>
                             <Route path="/" element={<Home />} />
+                            <Route path="/training" element={<Training />} />
+                            <Route path="/daw" element={<DAW />} />
                             <Route path="/piano" element={<PianoPage />} />
                             <Route path="/2048" element={<C2048 />} />
                             <Route path="/settings" element={<Settings />} />
